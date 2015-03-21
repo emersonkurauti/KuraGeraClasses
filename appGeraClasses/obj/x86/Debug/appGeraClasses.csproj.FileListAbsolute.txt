@@ -1,0 +1,8 @@
+C:\KuraSoft\KuraGeraClasses\appGeraClasses\obj\x86\Debug\appGeraClasses.frmGerarClasses.resources
+C:\KuraSoft\KuraGeraClasses\appGeraClasses\obj\x86\Debug\appGeraClasses.Properties.Resources.resources
+C:\KuraSoft\KuraGeraClasses\appGeraClasses\obj\x86\Debug\appGeraClasses.csproj.GenerateResource.Cache
+C:\KuraSoft\KuraGeraClasses\appGeraClasses\bin\Debug\appGeraClasses.exe
+C:\KuraSoft\KuraGeraClasses\appGeraClasses\bin\Debug\appGeraClasses.pdb
+C:\KuraSoft\KuraGeraClasses\appGeraClasses\obj\x86\Debug\appGeraClasses.exe
+C:\KuraSoft\KuraGeraClasses\appGeraClasses\obj\x86\Debug\appGeraClasses.pdb
+C:\KuraSoft\KuraGeraClasses\appGeraClasses\obj\x86\Debug\appGeraClasses.csprojResolveAssemblyReference.cache

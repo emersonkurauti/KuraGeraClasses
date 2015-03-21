@@ -1,0 +1,40 @@
+﻿		/// <summary>
+        /// Método sobrescrito por conta do campo calculado
+        /// </summary>
+        /// <param name="dtDados"></param>
+        /// <returns></returns>
+        public override bool Select(out DataTable dtDados)
+        {
+            if (base.Select(out dtDados))
+            {
+                conTpPessoa objConTpPessoa = new conTpPessoa();
+                DataTable dtAux = dtDados;
+
+                dtDados.Columns[caPessoa.CC_flTpDocumento].ReadOnly = false;
+                dtDados.Columns[caPessoa.CC_flTpDocumento].MaxLength = 100;
+
+                dtDados.Columns[caPessoa.CC_deTpPessoa].ReadOnly = false;
+                dtDados.Columns[caPessoa.CC_deTpPessoa].MaxLength = 100;
+
+                foreach (DataRow dr in dtAux.Rows)
+                {
+                    objConTpPessoa.objCoTpPessoa.LimparAtributos();
+                    objConTpPessoa.objCoTpPessoa.cdTpPessoa = Convert.ToInt32(dr[caPessoa.cdTpPessoa].ToString());
+
+                    if (conTpPessoa.Select())
+                    {
+                        if (objConTpPessoa.dtDados.Rows.Count > 0)
+                        {
+                            dr[caPessoa.CC_flTpDocumento] = objConTpPessoa.dtDados.Rows[0][caTpPessoa.flTpDocumento].ToString();
+                            dr[caPessoa.CC_deTpPessoa] = objConTpPessoa.dtDados.Rows[0][caTpPessoa.deTpPessoa].ToString();
+                        }
+                    }
+                }
+
+                dtDados = dtAux;
+            }
+            else
+                return false;
+
+            return true;
+        }
