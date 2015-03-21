@@ -103,6 +103,7 @@
             this.tcClasses.SelectedIndex = 0;
             this.tcClasses.Size = new System.Drawing.Size(822, 415);
             this.tcClasses.TabIndex = 2;
+            this.tcClasses.SelectedIndexChanged += new System.EventHandler(this.tcClasses_SelectedIndexChanged);
             // 
             // tpGeral
             // 
@@ -447,6 +448,7 @@
             this.dgvCampoCalculado.Name = "dgvCampoCalculado";
             this.dgvCampoCalculado.Size = new System.Drawing.Size(779, 277);
             this.dgvCampoCalculado.TabIndex = 1;
+            this.dgvCampoCalculado.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCampoCalculado_CellLeave);
             // 
             // nmCampoCalculado
             // 
@@ -472,6 +474,7 @@
             // nmCampoRetorno
             // 
             this.nmCampoRetorno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nmCampoRetorno.DataPropertyName = "nmCampoRetorno";
             this.nmCampoRetorno.HeaderText = "Campo Retorno";
             this.nmCampoRetorno.Name = "nmCampoRetorno";
             // 

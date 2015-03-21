@@ -20,6 +20,7 @@ namespace appGeraClasses
         OracleDataAdapter objDta = new OracleDataAdapter();
         DataTable dtCamposTabela = new DataTable();
         DataTable dtRetornoFields = new DataTable();
+        DataTable dtCampoCalculado = new DataTable();
         string nmClasseController;
         string nmClasseModelObject;
         string nmClasseModelAttribute;
@@ -30,6 +31,17 @@ namespace appGeraClasses
             InitializeComponent();
 
             objBanco = csBanco.Instance;
+
+            //DataTable de Fields
+            dtRetornoFields.Columns.Add("nmField", typeof(string));
+            dtRetornoFields.Columns.Add("deCampo", typeof(string));
+            dtRetornoFields.Columns.Add("boVisivel", typeof(string));
+
+            //DataTable de campos calculados
+            dtCampoCalculado.Columns.Add("nmCampoCalculado", typeof(string));
+            dtCampoCalculado.Columns.Add("nmTabela", typeof(string));
+            dtCampoCalculado.Columns.Add("nmChave", typeof(string));
+            dtCampoCalculado.Columns.Add("nmCampoRetorno", typeof(string));
         }
 
         private void btnCarregaCampos_Click(object sender, EventArgs e)
@@ -59,10 +71,6 @@ namespace appGeraClasses
 
         private void CarregaRetornoFields()
         {
-            dtRetornoFields.Columns.Add("nmField", typeof(string));
-            dtRetornoFields.Columns.Add("deCampo", typeof(string));
-            dtRetornoFields.Columns.Add("boVisivel", typeof(string));
-
             foreach (DataRow dr in dtCamposTabela.Rows)
             {
                 DataRow drField = dtRetornoFields.NewRow();
@@ -75,6 +83,15 @@ namespace appGeraClasses
             }
 
             dgvRetornoFields.DataSource = dtRetornoFields;
+        }
+
+        private string GeraCampoCalculado()
+        {
+            string strCampoCalculado = "";
+
+
+
+            return strCampoCalculado;
         }
 
         private void txtNmTabela_Leave(object sender, EventArgs e)
@@ -113,6 +130,7 @@ namespace appGeraClasses
         private void GeraModelObject()
         {
             string strAttributes = "";
+            string strCampoCalculado = "";
             csModelObject ClasseModelObject = new csModelObject();
             try
             {
@@ -135,7 +153,9 @@ namespace appGeraClasses
                         }
 
                         strTextoClasse = strTextoClasse.Replace("[Attribute]", strAttributes);
-                        //strTextoClasse = strTextoClasse.Replace("[CampoCalculado]", strCampoCalculado);
+
+                        strCampoCalculado = GeraCampoCalculado();
+                        strTextoClasse = strTextoClasse.Replace("[CampoCalculado]", strCampoCalculado);
 
                         sw.Write(strTextoClasse);
                     }
@@ -143,7 +163,7 @@ namespace appGeraClasses
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao gerar Controller: " + ex.Message);
+                MessageBox.Show("Erro ao gerar Model Object: " + ex.Message);
             }
         }
 
@@ -205,6 +225,61 @@ namespace appGeraClasses
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao gerar Model Attribute: " + ex.Message);
+            }
+        }
+
+        private void tcClasses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dtCampoCalculado.Rows.Clear();
+
+            foreach (DataRow dr in dtCamposTabela.Rows)
+            {
+                if (dr["NomeClasse"].ToString().Substring(0, 3) == "CC_")
+                {
+                    DataRow drField = dtCampoCalculado.NewRow();
+
+                    drField["nmCampoCalculado"] = dr["NomeClasse"].ToString();
+
+                    dtCampoCalculado.Rows.Add(drField);
+                }
+            }
+
+            dgvCampoCalculado.DataSource = dtCampoCalculado;
+        }
+
+        private void dgvCampoCalculado_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            DataTable dtCampos = new DataTable();
+            string strChave = "";
+
+            try
+            {
+                if (dgvCampoCalculado.Columns[e.ColumnIndex].DataPropertyName.ToString() == "nmTabela")
+                {
+                    objDta = objBanco.RetornaCamposTabela(dgvCampoCalculado[e.ColumnIndex, e.RowIndex].EditedFormattedValue.ToString());
+                    objDta.Fill(dtCampos);
+
+                    if (dtCampos.Rows.Count > 0)
+                    {
+
+                        foreach (DataRow dr in dtCampos.Rows)
+                        {
+                            if (dr["CHAVE"].ToString() == "S")
+                                strChave += dr["Nome"].ToString() + ";";
+                        }
+
+                        dtCampoCalculado.Rows[e.RowIndex]["nmTabela"] = dgvCampoCalculado[e.ColumnIndex, e.RowIndex].EditedFormattedValue.ToString();
+                        dtCampoCalculado.Rows[e.RowIndex]["nmChave"] = strChave.Substring(0, strChave.Length - 1);
+
+                        dgvCampoCalculado.DataSource = dtCampoCalculado;
+                    }
+                    else
+                        MessageBox.Show("Nenhum campo chave localizado, verifique o nome da tabela ou a estrutura dela!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao Chave da Tabela Origem: " + ex.Message);
             }
         }
     }
