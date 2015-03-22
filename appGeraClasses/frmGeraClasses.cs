@@ -53,8 +53,6 @@ namespace appGeraClasses
 
             dgvCampos.AutoGenerateColumns = false;
             dgvCampos.DataSource = dtCamposTabela;
-
-            CarregaRetornoFields();
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
@@ -69,27 +67,35 @@ namespace appGeraClasses
             GeraModelObject();
         }
 
-        private void CarregaRetornoFields()
-        {
-            foreach (DataRow dr in dtCamposTabela.Rows)
-            {
-                DataRow drField = dtRetornoFields.NewRow();
-
-                drField["nmField"] = dr["NomeClasse"].ToString();
-                drField["deCampo"] = dr["NomeClasse"].ToString();
-                drField["boVisivel"] = 1;
-
-                dtRetornoFields.Rows.Add(drField);
-            }
-
-            dgvRetornoFields.DataSource = dtRetornoFields;
-        }
-
         private string GeraCampoCalculado()
         {
             string strCampoCalculado = "";
 
+            if (dtCampoCalculado.Rows.Count > 0)
+            {
+                csModelObject ClasseModelObject = new csModelObject();
 
+                string strSelectCampoCalc = ClasseModelObject.strSelectCampoCalc;
+                string strListaControllers = "";
+                string strAlteraReadyOnly_Length = "";
+                string strPreparaControllerParaConsulta = "";
+                string strExecutaConsulta = "";
+
+                foreach (DataRow dr in dtCampoCalculado.Rows)
+                {
+                    strListaControllers += ClasseModelObject.strListaControllers.Replace("[TableCalc]", dr["nmTabela"].ToString());
+                    strAlteraReadyOnly_Length += ClasseModelObject.strAlteraReadyOnly_Length.Replace("[CCAttribute]", dr["nmCampoCalculado"].ToString()).Replace("[Table]", txtNmTabela.Text);
+                    strPreparaControllerParaConsulta += ClasseModelObject.strPreparaControllerParaConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CampoChave]", dr["nmChave"].ToString()).Replace("[Table]", txtNmTabela.Text);
+                    strExecutaConsulta += ClasseModelObject.strExecutaConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CCAttribute]", dr["nmCampoCalculado"].ToString()).Replace("[Table]", txtNmTabela.Text).Replace("[AttributeCalc]", dr["nmCampoRetorno"].ToString());
+                }
+
+                strSelectCampoCalc = strSelectCampoCalc.Replace("[ListaControllers]", strListaControllers);
+                strSelectCampoCalc = strSelectCampoCalc.Replace("[AlteraReadyOnly_Length]", strAlteraReadyOnly_Length);
+                strSelectCampoCalc = strSelectCampoCalc.Replace("[PreparaControllerParaConsulta]", strPreparaControllerParaConsulta);
+                strSelectCampoCalc = strSelectCampoCalc.Replace("[ExecutaConsulta]", strExecutaConsulta);
+
+                strCampoCalculado = strSelectCampoCalc;
+            }
 
             return strCampoCalculado;
         }
@@ -231,6 +237,7 @@ namespace appGeraClasses
         private void tcClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
             dtCampoCalculado.Rows.Clear();
+            dtRetornoFields.Rows.Clear();
 
             foreach (DataRow dr in dtCamposTabela.Rows)
             {
@@ -242,9 +249,18 @@ namespace appGeraClasses
 
                     dtCampoCalculado.Rows.Add(drField);
                 }
+
+                DataRow drFieldRet = dtRetornoFields.NewRow();
+
+                drFieldRet["nmField"] = dr["NomeClasse"].ToString();
+                drFieldRet["deCampo"] = dr["NomeClasse"].ToString();
+                drFieldRet["boVisivel"] = 1;
+
+                dtRetornoFields.Rows.Add(drFieldRet);
             }
 
             dgvCampoCalculado.DataSource = dtCampoCalculado;
+            dgvRetornoFields.DataSource = dtRetornoFields;
         }
 
         private void dgvCampoCalculado_CellLeave(object sender, DataGridViewCellEventArgs e)

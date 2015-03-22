@@ -36,7 +36,7 @@ namespace appGeraClasses.ModelObject
             "                   }" + "\n";
 
         public string strSelectCampoCalc =
-            "		/// <summary>" + "\n" +
+            "       /// <summary>" + "\n" +
             "       /// Método sobrescrito por conta do campo calculado" + "\n" +
             "       /// </summary>" + "\n" +
             "       /// <param name=\"dtDados\"></param>" + "\n" +
@@ -45,16 +45,16 @@ namespace appGeraClasses.ModelObject
             "       {" + "\n" +
             "           if (base.Select(out dtDados))" + "\n" +
             "           {" + "\n" +
-            "               [ListaControllers]" + "\n" +
+            "[ListaControllers]" + "\n" +
             "               DataTable dtAux = dtDados;" + "\n" +
             "" + "\n" +
-            "               [AlteraReadyOnly_Length]" + "\n" +
+            "[AlteraReadyOnly_Length]" + "\n" +
             "" + "\n" +
             "               foreach (DataRow dr in dtAux.Rows)" + "\n" +
             "               {" + "\n" +
-            "                   [PreparaControllerParaConsulta]" + "\n" +
+            "[PreparaControllerParaConsulta]" + "\n" +
             "" + "\n" +
-            "                   [ExecutaConsulta]" + "\n" +
+            "[ExecutaConsulta]" + "\n" +
             "               }" + "\n" +
             "" + "\n" +
             "               dtDados = dtAux;" + "\n" +
@@ -99,10 +99,7 @@ namespace appGeraClasses.ModelObject
             "            _CC_cdRegistro = [PK];" + "\n" +
             "        }" + "\n" +
             "" + "\n" +
-            "		/// <summary>" + "\n" +
-            "		/// Atributos" + "\n" +
-            "		/// </summary>" +
-            "	 	 [CampoCalculado]" + "\n" +
+            "[CampoCalculado]" + "\n" +
             "" + "\n" +
             "        /// <summary>" + "\n" +
             "        /// Sobrescrito para retornar a chave" + "\n" +
