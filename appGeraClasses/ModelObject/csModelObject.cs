@@ -97,6 +97,7 @@ namespace appGeraClasses.ModelObject
             "            AtualizaObj();" + "\n" +
             "            LimparAtributos();" + "\n" +
             "            _CC_cdRegistro = [PK];" + "\n" +
+            "            tobjCA = typeof(ca[Table]);" + "\n" +
             "        }" + "\n" +
             "" + "\n" +
             "[CampoCalculado]" + "\n" +
