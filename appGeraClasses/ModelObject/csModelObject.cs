@@ -8,7 +8,7 @@ namespace appGeraClasses.ModelObject
     public class csModelObject
     {
         public string strAttribute =
-            "		private static [Type] _[nmAttribute];" + "\n" +
+            "		private static [Type] _[nmAttribute][IniVar];" + "\n" +
             "        public [Type] [nmAttribute]" + "\n" +
             "        {" + "\n" +
             "            get { return _[nmAttribute]; }" + "\n" +
@@ -24,14 +24,17 @@ namespace appGeraClasses.ModelObject
 
         public string strPreparaControllerParaConsulta =
             "                   objCon[TableCalc].objCo[TableCalc].LimparAtributos();" + "\n" +
-            "                   objCon[TableCalc].objCo[TableCalc].[CampoChave] = Convert.ToInt32(dr[ca[Table].[CampoChave]].ToString());" + "\n";
+            "                   objCon[TableCalc].objCo[TableCalc].[CampoChave] = Convert.ToInt32(dr[ca[Table].[CampoChave]].ToString());";
+
+        public string strTraducaoCampoCalc =
+            "                           dr[ca[Table].[CCAttribute]] = objCon[TableCalc].dtDados.Rows[0][ca[TableCalc].[AttributeCalc]].ToString();" + "\n";
 
         public string strExecutaConsulta =
             "                   if (con[TableCalc].Select())" + "\n" +
             "                   {" + "\n" +
             "                       if (objCon[TableCalc].dtDados.Rows.Count > 0)" + "\n" +
             "                       {" + "\n" +
-            "                           dr[ca[Table].[CCAttribute]] = objCon[TableCalc].dtDados.Rows[0][ca[TableCalc].[AttributeCalc]].ToString();" + "\n" +
+            "[TraducaoCampoCalc]" + "\n" +
             "                       }" + "\n" +
             "                   }" + "\n";
 
@@ -49,12 +52,11 @@ namespace appGeraClasses.ModelObject
             "               DataTable dtAux = dtDados;" + "\n" +
             "" + "\n" +
             "[AlteraReadyOnly_Length]" + "\n" +
-            "" + "\n" +
             "               foreach (DataRow dr in dtAux.Rows)" + "\n" +
             "               {" + "\n" +
             "[PreparaControllerParaConsulta]" + "\n" +
             "" + "\n" +
-            "[ExecutaConsulta]" + "\n" +
+            "[ExecutaConsulta]" + 
             "               }" + "\n" +
             "" + "\n" +
             "               dtDados = dtAux;" + "\n" +

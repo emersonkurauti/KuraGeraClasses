@@ -80,6 +80,9 @@ namespace appGeraClasses
                 string strAlteraReadyOnly_Length = "";
                 string strPreparaControllerParaConsulta = "";
                 string strExecutaConsulta = "";
+                string strTraducaoCampoCalc = "";
+                string strTable = "";
+                string strTabelaAnterior = dtCampoCalculado.Rows[0]["nmTabela"].ToString();
 
                 foreach (DataRow dr in dtCampoCalculado.Rows)
                 {
@@ -93,8 +96,19 @@ namespace appGeraClasses
                         !strPreparaControllerParaConsulta.Contains(txtNmTabela.Text))
                         strPreparaControllerParaConsulta += ClasseModelObject.strPreparaControllerParaConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CampoChave]", dr["nmChave"].ToString()).Replace("[Table]", txtNmTabela.Text);
 
-                    strExecutaConsulta += ClasseModelObject.strExecutaConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CCAttribute]", dr["nmCampoCalculado"].ToString()).Replace("[Table]", txtNmTabela.Text).Replace("[AttributeCalc]", dr["nmCampoRetorno"].ToString());
+                    strTraducaoCampoCalc += ClasseModelObject.strTraducaoCampoCalc.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CCAttribute]", dr["nmCampoCalculado"].ToString()).Replace("[Table]", txtNmTabela.Text).Replace("[AttributeCalc]", dr["nmCampoRetorno"].ToString());
+
+                    if (strTabelaAnterior != dr["nmTabela"].ToString())
+                    {
+                        strExecutaConsulta += ClasseModelObject.strExecutaConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("TraducaoCampoCalc", strTraducaoCampoCalc);
+                        strTraducaoCampoCalc = "";
+                        strTabelaAnterior = dr["nmTabela"].ToString();
+                    }
+
+                    strTable = dr["nmTabela"].ToString();
                 }
+
+                strExecutaConsulta += ClasseModelObject.strExecutaConsulta.Replace("[TableCalc]", strTable).Replace("[TraducaoCampoCalc]", strTraducaoCampoCalc);
 
                 strSelectCampoCalc = strSelectCampoCalc.Replace("[ListaControllers]", strListaControllers);
                 strSelectCampoCalc = strSelectCampoCalc.Replace("[AlteraReadyOnly_Length]", strAlteraReadyOnly_Length);
@@ -144,6 +158,7 @@ namespace appGeraClasses
         {
             string strAttributes = "";
             string strCampoCalculado = "";
+            string strIniVar = "";
             csModelObject ClasseModelObject = new csModelObject();
             try
             {
@@ -159,10 +174,14 @@ namespace appGeraClasses
 
                         foreach (DataRow dr in dtCamposTabela.Rows)
                         {
+                            strIniVar = "";
+                            if (dr["TpVariavel"].ToString().ToLower() == "string")
+                                strIniVar = " = \"\"";
+
                             if (dr["CHAVE"].ToString() == "S")
                                 strTextoClasse = strTextoClasse.Replace("[PK]", dr["NomeClasse"].ToString());
 
-                            strAttributes += "\n" + ClasseModelObject.strAttribute.Replace("[nmAttribute]", dr["NomeClasse"].ToString()).Replace("[Type]", dr["TpVariavel"].ToString().ToLower());
+                            strAttributes += "\n" + ClasseModelObject.strAttribute.Replace("[nmAttribute]", dr["NomeClasse"].ToString()).Replace("[Type]", dr["TpVariavel"].ToString().ToLower()).Replace("[IniVar]", strIniVar);
                         }
 
                         strTextoClasse = strTextoClasse.Replace("[Attribute]", strAttributes);
@@ -226,7 +245,7 @@ namespace appGeraClasses
 
                         foreach (DataRow dr in dtRetornoFields.Rows)
                         {
-                            strFields += dr["nmField"].ToString() + " + \";\" + ";
+                            strFields += dr["nmField"].ToString() + " + \",\" + ";
                             strNameFields += dr["deCampo"].ToString() + ", ";
                             strVisibleFields += dr["boVisivel"].ToString() + ", ";
                         }
@@ -299,6 +318,7 @@ namespace appGeraClasses
 
                         dtCampoCalculado.Rows[e.RowIndex]["nmTabela"] = dgvCampoCalculado[e.ColumnIndex, e.RowIndex].EditedFormattedValue.ToString();
                         dtCampoCalculado.Rows[e.RowIndex]["nmChave"] = strChave.Substring(0, strChave.Length - 1);
+                        dtCampoCalculado.Rows[e.RowIndex]["nmCampoRetorno"] = dtCampoCalculado.Rows[e.RowIndex]["nmCampoCalculado"].ToString().Substring(3, dtCampoCalculado.Rows[e.RowIndex]["nmCampoCalculado"].ToString().Length - 3);
 
                         dgvCampoCalculado.DataSource = dtCampoCalculado;
                     }

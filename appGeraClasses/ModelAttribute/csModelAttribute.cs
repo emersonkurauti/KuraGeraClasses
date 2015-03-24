@@ -96,11 +96,11 @@ namespace appGeraClasses.ModelAttribute
             "        /// <param name=\"strNome\"></param>" + "\n" +
             "        public static void RetornarFields()" + "\n" +
             "        {" + "\n" +
-            "            _strFields = [strFields];" + "\n" +
+            "            _strFields = CC_cdRegistro  + \",\" + [strFields];" + "\n" +
             "" + "\n" +
-            "            _strNome = \"[strNameFields]\";" + "\n" +
+            "            _strNome = \"Cd. Registro, [strNameFields]\";" + "\n" +
             "" + "\n" +
-            "            _strVisivel = \"[strVisibleFields]\";" + "\n" +
+            "            _strVisivel = \"0, [strVisibleFields]\";" + "\n" +
             "        }" + "\n" +
             "    }" + "\n" +
             "}";
