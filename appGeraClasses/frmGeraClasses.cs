@@ -83,9 +83,16 @@ namespace appGeraClasses
 
                 foreach (DataRow dr in dtCampoCalculado.Rows)
                 {
-                    strListaControllers += ClasseModelObject.strListaControllers.Replace("[TableCalc]", dr["nmTabela"].ToString());
+                    if (!strListaControllers.Contains(dr["nmTabela"].ToString()))
+                        strListaControllers += ClasseModelObject.strListaControllers.Replace("[TableCalc]", dr["nmTabela"].ToString());
+
                     strAlteraReadyOnly_Length += ClasseModelObject.strAlteraReadyOnly_Length.Replace("[CCAttribute]", dr["nmCampoCalculado"].ToString()).Replace("[Table]", txtNmTabela.Text);
-                    strPreparaControllerParaConsulta += ClasseModelObject.strPreparaControllerParaConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CampoChave]", dr["nmChave"].ToString()).Replace("[Table]", txtNmTabela.Text);
+
+                    if (!strPreparaControllerParaConsulta.Contains(dr["nmTabela"].ToString()) ||
+                        !strPreparaControllerParaConsulta.Contains(dr["nmChave"].ToString()) ||
+                        !strPreparaControllerParaConsulta.Contains(txtNmTabela.Text))
+                        strPreparaControllerParaConsulta += ClasseModelObject.strPreparaControllerParaConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CampoChave]", dr["nmChave"].ToString()).Replace("[Table]", txtNmTabela.Text);
+
                     strExecutaConsulta += ClasseModelObject.strExecutaConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CCAttribute]", dr["nmCampoCalculado"].ToString()).Replace("[Table]", txtNmTabela.Text).Replace("[AttributeCalc]", dr["nmCampoRetorno"].ToString());
                 }
 
@@ -285,7 +292,9 @@ namespace appGeraClasses
                         foreach (DataRow dr in dtCampos.Rows)
                         {
                             if (dr["CHAVE"].ToString() == "S")
-                                strChave += dr["Nome"].ToString() + ";";
+                                strChave += dr["Nome"].ToString().Substring(0, 2).ToLower() +
+                                    dr["Nome"].ToString().Substring(2, 1).ToUpper() +
+                                    dr["Nome"].ToString().Substring(3, dr["Nome"].ToString().Length - 3).ToLower() + ";";
                         }
 
                         dtCampoCalculado.Rows[e.RowIndex]["nmTabela"] = dgvCampoCalculado[e.ColumnIndex, e.RowIndex].EditedFormattedValue.ToString();
