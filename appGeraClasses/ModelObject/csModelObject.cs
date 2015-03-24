@@ -115,16 +115,17 @@ namespace appGeraClasses.ModelObject
             "" + "\n" +
             "            return false;" + "\n" +
             "        }" + "\n" +
-            "" + "\n" +
-            "        /// <summary>" + "\n" +
-            "        /// Método para garantir a execução das instruções no objeto correto" + "\n" +
-            "        /// </summary>" + "\n" +
-            "        public override void AtualizaObj()" + "\n" +
-            "        {" + "\n" +
-            "            base.AtualizaObj();" + "\n" +
-            "            objBanco.strCampoChave = ca[Table].nmCampoChave;" + "\n" +
-            "            objBanco.strTabela = ca[Table].nmTabela;" + "\n" +
-            "        }" + "\n" +
+            ///Deixou de existir devido à atualização para a versão 2.0
+            //"" + "\n" +
+            //"        /// <summary>" + "\n" +
+            //"        /// Método para garantir a execução das instruções no objeto correto" + "\n" +
+            //"        /// </summary>" + "\n" +
+            //"        public override void AtualizaObj()" + "\n" +
+            //"        {" + "\n" +
+            //"            base.AtualizaObj();" + "\n" +
+            //"            objBanco.strCampoChave = ca[Table].nmCampoChave;" + "\n" +
+            //"            objBanco.strTabela = ca[Table].nmTabela;" + "\n" +
+            //"        }" + "\n" +
             "    }" + "\n" +
             "}";
     }

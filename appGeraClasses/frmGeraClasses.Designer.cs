@@ -34,6 +34,13 @@
             this.txtNameSpaceMensagem = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.dgvCampos = new System.Windows.Forms.DataGridView();
+            this.dePrincipal = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.nmCampo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NomeClasse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TpVariavel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CHAVE = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CHCOMPOSTA = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.TpCampo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCarregaCampos = new System.Windows.Forms.Button();
             this.txtNmTabela = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,40 +49,35 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tpModel = new System.Windows.Forms.TabPage();
             this.tcModel = new System.Windows.Forms.TabControl();
-            this.tpObject = new System.Windows.Forms.TabPage();
             this.tpAttribute = new System.Windows.Forms.TabPage();
-            this.txtNameSpaceModel = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnGerar = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtCaminho = new System.Windows.Forms.TextBox();
-            this.dePrincipal = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.nmCampo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NomeClasse = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TpVariavel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CHAVE = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CHCOMPOSTA = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.TpCampo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRetornoFields = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
+            this.dgvRetornoFields = new System.Windows.Forms.DataGridView();
             this.nmField = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deCampo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.boVisivel = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.label7 = new System.Windows.Forms.Label();
+            this.tpObject = new System.Windows.Forms.TabPage();
             this.dgvCampoCalculado = new System.Windows.Forms.DataGridView();
             this.nmCampoCalculado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nmTabela = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nmChave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nmCampoRetorno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtNameSpaceModel = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnGerar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtCaminho = new System.Windows.Forms.TextBox();
+            this.cbGeraChave = new System.Windows.Forms.CheckBox();
+            this.cbControlaTransacao = new System.Windows.Forms.CheckBox();
             this.tcClasses.SuspendLayout();
             this.tpGeral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCampos)).BeginInit();
             this.tpController.SuspendLayout();
             this.tpModel.SuspendLayout();
             this.tcModel.SuspendLayout();
-            this.tpObject.SuspendLayout();
             this.tpAttribute.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRetornoFields)).BeginInit();
+            this.tpObject.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCampoCalculado)).BeginInit();
             this.SuspendLayout();
             // 
@@ -157,6 +159,69 @@
             this.dgvCampos.Name = "dgvCampos";
             this.dgvCampos.Size = new System.Drawing.Size(799, 284);
             this.dgvCampos.TabIndex = 7;
+            // 
+            // dePrincipal
+            // 
+            this.dePrincipal.DataPropertyName = "dePrincipal";
+            this.dePrincipal.FalseValue = "N";
+            this.dePrincipal.HeaderText = "Desc. Princ.";
+            this.dePrincipal.Name = "dePrincipal";
+            this.dePrincipal.TrueValue = "S";
+            this.dePrincipal.Width = 75;
+            // 
+            // nmCampo
+            // 
+            this.nmCampo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nmCampo.DataPropertyName = "Nome";
+            this.nmCampo.HeaderText = "Nome Campo Tablea";
+            this.nmCampo.Name = "nmCampo";
+            this.nmCampo.ReadOnly = true;
+            // 
+            // NomeClasse
+            // 
+            this.NomeClasse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NomeClasse.DataPropertyName = "NomeClasse";
+            this.NomeClasse.HeaderText = "Nome Campo Classe";
+            this.NomeClasse.Name = "NomeClasse";
+            // 
+            // TpVariavel
+            // 
+            this.TpVariavel.DataPropertyName = "TpVariavel";
+            this.TpVariavel.HeaderText = "Tp. Variavel";
+            this.TpVariavel.Name = "TpVariavel";
+            this.TpVariavel.Width = 90;
+            // 
+            // CHAVE
+            // 
+            this.CHAVE.DataPropertyName = "CHAVE";
+            this.CHAVE.FalseValue = "N";
+            this.CHAVE.HeaderText = "Chave";
+            this.CHAVE.Name = "CHAVE";
+            this.CHAVE.ReadOnly = true;
+            this.CHAVE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CHAVE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CHAVE.TrueValue = "S";
+            this.CHAVE.Width = 50;
+            // 
+            // CHCOMPOSTA
+            // 
+            this.CHCOMPOSTA.DataPropertyName = "CHCOMPOSTA";
+            this.CHCOMPOSTA.FalseValue = "N";
+            this.CHCOMPOSTA.HeaderText = "Ch. Comp.";
+            this.CHCOMPOSTA.Name = "CHCOMPOSTA";
+            this.CHCOMPOSTA.ReadOnly = true;
+            this.CHCOMPOSTA.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CHCOMPOSTA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CHCOMPOSTA.TrueValue = "S";
+            this.CHCOMPOSTA.Width = 85;
+            // 
+            // TpCampo
+            // 
+            this.TpCampo.DataPropertyName = "Tipo";
+            this.TpCampo.HeaderText = "Tp. Campo";
+            this.TpCampo.Name = "TpCampo";
+            this.TpCampo.ReadOnly = true;
+            this.TpCampo.Width = 85;
             // 
             // btnCarregaCampos
             // 
@@ -242,6 +307,67 @@
             this.tcModel.Size = new System.Drawing.Size(799, 328);
             this.tcModel.TabIndex = 4;
             // 
+            // tpAttribute
+            // 
+            this.tpAttribute.Controls.Add(this.cbControlaTransacao);
+            this.tpAttribute.Controls.Add(this.cbGeraChave);
+            this.tpAttribute.Controls.Add(this.label3);
+            this.tpAttribute.Controls.Add(this.dgvRetornoFields);
+            this.tpAttribute.Location = new System.Drawing.Point(4, 22);
+            this.tpAttribute.Name = "tpAttribute";
+            this.tpAttribute.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAttribute.Size = new System.Drawing.Size(791, 302);
+            this.tpAttribute.TabIndex = 1;
+            this.tpAttribute.Text = "Attribute";
+            this.tpAttribute.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(78, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Retorna Fields:";
+            // 
+            // dgvRetornoFields
+            // 
+            this.dgvRetornoFields.AllowUserToAddRows = false;
+            this.dgvRetornoFields.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvRetornoFields.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRetornoFields.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nmField,
+            this.deCampo,
+            this.boVisivel});
+            this.dgvRetornoFields.Location = new System.Drawing.Point(6, 19);
+            this.dgvRetornoFields.Name = "dgvRetornoFields";
+            this.dgvRetornoFields.Size = new System.Drawing.Size(779, 277);
+            this.dgvRetornoFields.TabIndex = 0;
+            // 
+            // nmField
+            // 
+            this.nmField.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nmField.DataPropertyName = "nmField";
+            this.nmField.HeaderText = "Nome Campo";
+            this.nmField.Name = "nmField";
+            // 
+            // deCampo
+            // 
+            this.deCampo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.deCampo.DataPropertyName = "deCampo";
+            this.deCampo.HeaderText = "Desc. Campo";
+            this.deCampo.Name = "deCampo";
+            // 
+            // boVisivel
+            // 
+            this.boVisivel.DataPropertyName = "boVisivel";
+            this.boVisivel.FalseValue = "0";
+            this.boVisivel.HeaderText = "Visível?";
+            this.boVisivel.Name = "boVisivel";
+            this.boVisivel.TrueValue = "1";
+            // 
             // tpObject
             // 
             this.tpObject.Controls.Add(this.dgvCampoCalculado);
@@ -254,17 +380,60 @@
             this.tpObject.Text = "Object";
             this.tpObject.UseVisualStyleBackColor = true;
             // 
-            // tpAttribute
+            // dgvCampoCalculado
             // 
-            this.tpAttribute.Controls.Add(this.label3);
-            this.tpAttribute.Controls.Add(this.dgvRetornoFields);
-            this.tpAttribute.Location = new System.Drawing.Point(4, 22);
-            this.tpAttribute.Name = "tpAttribute";
-            this.tpAttribute.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAttribute.Size = new System.Drawing.Size(791, 302);
-            this.tpAttribute.TabIndex = 1;
-            this.tpAttribute.Text = "Attribute";
-            this.tpAttribute.UseVisualStyleBackColor = true;
+            this.dgvCampoCalculado.AllowUserToAddRows = false;
+            this.dgvCampoCalculado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvCampoCalculado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCampoCalculado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nmCampoCalculado,
+            this.nmTabela,
+            this.nmChave,
+            this.nmCampoRetorno});
+            this.dgvCampoCalculado.Location = new System.Drawing.Point(6, 19);
+            this.dgvCampoCalculado.Name = "dgvCampoCalculado";
+            this.dgvCampoCalculado.Size = new System.Drawing.Size(779, 277);
+            this.dgvCampoCalculado.TabIndex = 1;
+            this.dgvCampoCalculado.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCampoCalculado_CellLeave);
+            // 
+            // nmCampoCalculado
+            // 
+            this.nmCampoCalculado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nmCampoCalculado.DataPropertyName = "nmCampoCalculado";
+            this.nmCampoCalculado.HeaderText = "Campo Calculado";
+            this.nmCampoCalculado.Name = "nmCampoCalculado";
+            // 
+            // nmTabela
+            // 
+            this.nmTabela.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nmTabela.DataPropertyName = "nmTabela";
+            this.nmTabela.HeaderText = "Tabela Origem";
+            this.nmTabela.Name = "nmTabela";
+            // 
+            // nmChave
+            // 
+            this.nmChave.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nmChave.DataPropertyName = "nmChave";
+            this.nmChave.HeaderText = "Chave";
+            this.nmChave.Name = "nmChave";
+            // 
+            // nmCampoRetorno
+            // 
+            this.nmCampoRetorno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nmCampoRetorno.DataPropertyName = "nmCampoRetorno";
+            this.nmCampoRetorno.HeaderText = "Campo Retorno";
+            this.nmCampoRetorno.Name = "nmCampoRetorno";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 3);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(93, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Campo Calculado:";
             // 
             // txtNameSpaceModel
             // 
@@ -313,170 +482,29 @@
             this.txtCaminho.Text = "C:\\Users\\Emerson\\Desktop\\";
             this.txtCaminho.Leave += new System.EventHandler(this.txtNmTabela_Leave);
             // 
-            // dePrincipal
+            // cbGeraChave
             // 
-            this.dePrincipal.DataPropertyName = "dePrincipal";
-            this.dePrincipal.FalseValue = "N";
-            this.dePrincipal.HeaderText = "Desc. Princ.";
-            this.dePrincipal.Name = "dePrincipal";
-            this.dePrincipal.TrueValue = "S";
-            this.dePrincipal.Width = 75;
+            this.cbGeraChave.AutoSize = true;
+            this.cbGeraChave.Checked = true;
+            this.cbGeraChave.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbGeraChave.Location = new System.Drawing.Point(705, 2);
+            this.cbGeraChave.Name = "cbGeraChave";
+            this.cbGeraChave.Size = new System.Drawing.Size(83, 17);
+            this.cbGeraChave.TabIndex = 2;
+            this.cbGeraChave.Text = "Gera Chave";
+            this.cbGeraChave.UseVisualStyleBackColor = true;
             // 
-            // nmCampo
+            // cbControlaTransacao
             // 
-            this.nmCampo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nmCampo.DataPropertyName = "Nome";
-            this.nmCampo.HeaderText = "Nome Campo Tablea";
-            this.nmCampo.Name = "nmCampo";
-            this.nmCampo.ReadOnly = true;
-            // 
-            // NomeClasse
-            // 
-            this.NomeClasse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NomeClasse.DataPropertyName = "NomeClasse";
-            this.NomeClasse.HeaderText = "Nome Campo Classe";
-            this.NomeClasse.Name = "NomeClasse";
-            // 
-            // TpVariavel
-            // 
-            this.TpVariavel.DataPropertyName = "TpVariavel";
-            this.TpVariavel.HeaderText = "Tp. Variavel";
-            this.TpVariavel.Name = "TpVariavel";
-            this.TpVariavel.Width = 90;
-            // 
-            // CHAVE
-            // 
-            this.CHAVE.DataPropertyName = "CHAVE";
-            this.CHAVE.FalseValue = "N";
-            this.CHAVE.HeaderText = "Chave";
-            this.CHAVE.Name = "CHAVE";
-            this.CHAVE.ReadOnly = true;
-            this.CHAVE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CHAVE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CHAVE.TrueValue = "S";
-            this.CHAVE.Width = 50;
-            // 
-            // CHCOMPOSTA
-            // 
-            this.CHCOMPOSTA.DataPropertyName = "CHCOMPOSTA";
-            this.CHCOMPOSTA.FalseValue = "N";
-            this.CHCOMPOSTA.HeaderText = "Ch. Comp.";
-            this.CHCOMPOSTA.Name = "CHCOMPOSTA";
-            this.CHCOMPOSTA.ReadOnly = true;
-            this.CHCOMPOSTA.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CHCOMPOSTA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CHCOMPOSTA.TrueValue = "S";
-            this.CHCOMPOSTA.Width = 85;
-            // 
-            // TpCampo
-            // 
-            this.TpCampo.DataPropertyName = "Tipo";
-            this.TpCampo.HeaderText = "Tp. Campo";
-            this.TpCampo.Name = "TpCampo";
-            this.TpCampo.ReadOnly = true;
-            this.TpCampo.Width = 85;
-            // 
-            // dgvRetornoFields
-            // 
-            this.dgvRetornoFields.AllowUserToAddRows = false;
-            this.dgvRetornoFields.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvRetornoFields.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRetornoFields.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nmField,
-            this.deCampo,
-            this.boVisivel});
-            this.dgvRetornoFields.Location = new System.Drawing.Point(6, 19);
-            this.dgvRetornoFields.Name = "dgvRetornoFields";
-            this.dgvRetornoFields.Size = new System.Drawing.Size(779, 277);
-            this.dgvRetornoFields.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Retorna Fields:";
-            // 
-            // nmField
-            // 
-            this.nmField.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nmField.DataPropertyName = "nmField";
-            this.nmField.HeaderText = "Nome Campo";
-            this.nmField.Name = "nmField";
-            // 
-            // deCampo
-            // 
-            this.deCampo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.deCampo.DataPropertyName = "deCampo";
-            this.deCampo.HeaderText = "Desc. Campo";
-            this.deCampo.Name = "deCampo";
-            // 
-            // boVisivel
-            // 
-            this.boVisivel.DataPropertyName = "boVisivel";
-            this.boVisivel.FalseValue = "0";
-            this.boVisivel.HeaderText = "Visível?";
-            this.boVisivel.Name = "boVisivel";
-            this.boVisivel.TrueValue = "1";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 3);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(93, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Campo Calculado:";
-            // 
-            // dgvCampoCalculado
-            // 
-            this.dgvCampoCalculado.AllowUserToAddRows = false;
-            this.dgvCampoCalculado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvCampoCalculado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCampoCalculado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nmCampoCalculado,
-            this.nmTabela,
-            this.nmChave,
-            this.nmCampoRetorno});
-            this.dgvCampoCalculado.Location = new System.Drawing.Point(6, 19);
-            this.dgvCampoCalculado.Name = "dgvCampoCalculado";
-            this.dgvCampoCalculado.Size = new System.Drawing.Size(779, 277);
-            this.dgvCampoCalculado.TabIndex = 1;
-            this.dgvCampoCalculado.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCampoCalculado_CellLeave);
-            // 
-            // nmCampoCalculado
-            // 
-            this.nmCampoCalculado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nmCampoCalculado.DataPropertyName = "nmCampoCalculado";
-            this.nmCampoCalculado.HeaderText = "Campo Calculado";
-            this.nmCampoCalculado.Name = "nmCampoCalculado";
-            // 
-            // nmTabela
-            // 
-            this.nmTabela.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nmTabela.DataPropertyName = "nmTabela";
-            this.nmTabela.HeaderText = "Tabela Origem";
-            this.nmTabela.Name = "nmTabela";
-            // 
-            // nmChave
-            // 
-            this.nmChave.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nmChave.DataPropertyName = "nmChave";
-            this.nmChave.HeaderText = "Chave";
-            this.nmChave.Name = "nmChave";
-            // 
-            // nmCampoRetorno
-            // 
-            this.nmCampoRetorno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nmCampoRetorno.DataPropertyName = "nmCampoRetorno";
-            this.nmCampoRetorno.HeaderText = "Campo Retorno";
-            this.nmCampoRetorno.Name = "nmCampoRetorno";
+            this.cbControlaTransacao.AutoSize = true;
+            this.cbControlaTransacao.Checked = true;
+            this.cbControlaTransacao.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbControlaTransacao.Location = new System.Drawing.Point(580, 2);
+            this.cbControlaTransacao.Name = "cbControlaTransacao";
+            this.cbControlaTransacao.Size = new System.Drawing.Size(119, 17);
+            this.cbControlaTransacao.TabIndex = 3;
+            this.cbControlaTransacao.Text = "Controla Transação";
+            this.cbControlaTransacao.UseVisualStyleBackColor = true;
             // 
             // frmGerarClasses
             // 
@@ -502,11 +530,11 @@
             this.tpModel.ResumeLayout(false);
             this.tpModel.PerformLayout();
             this.tcModel.ResumeLayout(false);
-            this.tpObject.ResumeLayout(false);
-            this.tpObject.PerformLayout();
             this.tpAttribute.ResumeLayout(false);
             this.tpAttribute.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRetornoFields)).EndInit();
+            this.tpObject.ResumeLayout(false);
+            this.tpObject.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCampoCalculado)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -554,6 +582,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nmTabela;
         private System.Windows.Forms.DataGridViewTextBoxColumn nmChave;
         private System.Windows.Forms.DataGridViewTextBoxColumn nmCampoRetorno;
+        private System.Windows.Forms.CheckBox cbControlaTransacao;
+        private System.Windows.Forms.CheckBox cbGeraChave;
     }
 }
 

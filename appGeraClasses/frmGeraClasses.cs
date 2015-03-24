@@ -195,6 +195,8 @@ namespace appGeraClasses
                         strTextoClasse = strTextoClasse.Replace("[NameSpaceModel]", txtNameSpaceModel.Text);
                         strTextoClasse = strTextoClasse.Replace("[NameSpaceController]", txtNameSpaceController.Text);
                         strTextoClasse = strTextoClasse.Replace("[NameSpaceMensagem]", txtNameSpaceMensagem.Text);
+                        strTextoClasse = strTextoClasse.Replace("[GeraChave]", cbGeraChave.Checked.ToString().ToLower());
+                        strTextoClasse = strTextoClasse.Replace("[ControlaTransacao]", cbControlaTransacao.Checked.ToString().ToLower());
 
                         foreach (DataRow dr in dtCamposTabela.Rows)
                         {
