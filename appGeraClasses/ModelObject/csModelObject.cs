@@ -80,8 +80,8 @@ namespace appGeraClasses.ModelObject
             "        private static  int _CC_cdRegistro;" + "\n" +
             "        public static int CC_cdRegistro" + "\n" +
             "        {" + "\n" +
-            "            get { return co[Table].[PK]; }" + "\n" +
-            "            set { co[Table].[PK] = value; }" + "\n" +
+            "            get { return co[Table]._[PK]; }" + "\n" +
+            "            set { co[Table]._[PK] = value; }" + "\n" +
             "        }" + "\n" +
             "" + "\n" +
             "		/// <summary>" + "\n" +

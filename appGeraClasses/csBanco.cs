@@ -100,15 +100,15 @@ namespace appGeraClasses
 
             dtaTabela = RetornaDA("SELECT UTC.COLUMN_NAME AS NOME, UTC.DATA_TYPE AS TIPO, UTC.DATA_PRECISION AS PRECISAO, " +
                                   "       CASE WHEN (CPK.CONSTRAINT_TYPE = 'P') THEN " +
-                                  "          'S' "+
-                                  "       ELSE "+
-                                  "          'N' "+
-                                  "       END AS CHAVE, "+
-                                  "       CASE WHEN (CPFK.CONSTRAINT_TYPE = 'C') THEN  "+
-                                  "          'S' "+
-                                  "       ELSE "+
-                                  "          'N' "+
-                                  "       END AS CHCOMPOSTA, "+
+                                  "          'S' " +
+                                  "       ELSE " +
+                                  "          'N' " +
+                                  "       END AS CHAVE, " +
+                                  "       CASE WHEN (CPFK.CONSTRAINT_TYPE = 'C' AND CPRK.CONSTRAINT_TYPE <> 'R') THEN  " +
+                                  "          'S' " +
+                                  "       ELSE " +
+                                  "          'N' " +
+                                  "       END AS CHCOMPOSTA, " +
                                   "       CASE WHEN UTC.DATA_TYPE = 'VARCHAR' OR UTC.DATA_TYPE = 'VARCHAR2' THEN " +
                                   "            'STRING'" +
                                   "       WHEN UTC.DATA_TYPE = 'NUMBER' THEN" +
@@ -116,7 +116,7 @@ namespace appGeraClasses
                                   "       WHEN UTC.DATA_TYPE = 'DATE' THEN" +
                                   "             'DATETIME'" +
                                   "       END AS TPVARIAVEL," +
-                                  "       'N' AS DEPRINCIPAL, "+
+                                  "       'N' AS DEPRINCIPAL, " +
                                   "       SUBSTR(LOWER(UTC.COLUMN_NAME),1,2) || SUBSTR(UPPER(UTC.COLUMN_NAME),3,1) || SUBSTR(LOWER(UTC.COLUMN_NAME),4,LENGTH(UTC.COLUMN_NAME)) AS NOMECLASSE " +
                                   "  FROM USER_TAB_COLUMNS UTC " +
                                   "  LEFT JOIN (SELECT CL.TABLE_NAME, CL.COLUMN_NAME, CONS.CONSTRAINT_TYPE " +
@@ -127,8 +127,13 @@ namespace appGeraClasses
                                   "  LEFT JOIN (SELECT CL.TABLE_NAME, CL.COLUMN_NAME, CONS.CONSTRAINT_TYPE " +
                                   "               FROM DBA_CONS_COLUMNS CL " +
                                   "              INNER JOIN DBA_CONSTRAINTS CONS ON CONS.CONSTRAINT_NAME = CL.CONSTRAINT_NAME" +
-                                  "              WHERE CONS.CONSTRAINT_TYPE <> 'P') CPFK ON CPFK.COLUMN_NAME = UTC.COLUMN_NAME " +
-                                  "                                                     AND CPFK.TABLE_NAME = UTC.TABLE_NAME " +
+                                  "              WHERE CONS.CONSTRAINT_TYPE = 'C') CPFK ON CPFK.COLUMN_NAME = UTC.COLUMN_NAME " +
+                                  "                                                               AND CPFK.TABLE_NAME = UTC.TABLE_NAME " +
+                                  "  LEFT JOIN (SELECT CL.TABLE_NAME, CL.COLUMN_NAME, CONS.CONSTRAINT_TYPE " +
+                                  "               FROM DBA_CONS_COLUMNS CL " +
+                                  "              INNER JOIN DBA_CONSTRAINTS CONS ON CONS.CONSTRAINT_NAME = CL.CONSTRAINT_NAME " +
+                                  "              WHERE CONS.CONSTRAINT_TYPE = 'R') CPRK ON CPRK.COLUMN_NAME = UTC.COLUMN_NAME " +
+                                  "                                                    AND CPRK.TABLE_NAME = UTC.TABLE_NAME " +
                                   " WHERE UTC.TABLE_NAME = UPPER('" + nmTabela + "')");
 
             //dtaTabela = RetornaDA("SELECT UTC.COLUMN_NAME AS NOME, UTC.DATA_TYPE AS TIPO, UTC.DATA_PRECISION AS PRECISAO, CPK.CONSTRAINT_TYPE AS CHAVE,"+
@@ -160,7 +165,7 @@ namespace appGeraClasses
         /// Retorna DataTable com o select passado por parâmetro
         /// </summary>
         /// <param name="sSQL"></param>
-        /// <returns></returns>
+        /// <returns></returns> 
         public DataTable RetornaDT(string sSQL)
         {
             DataTable dtDados = new DataTable();

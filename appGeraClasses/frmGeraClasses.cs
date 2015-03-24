@@ -212,7 +212,9 @@ namespace appGeraClasses
                             strAttributes += "\n" + ClasseModelAttribute.strAttribute.Replace("[nmAttribute]", dr["NomeClasse"].ToString());
                         }
 
-                        strTextoClasse = strTextoClasse.Replace("[ChComposta]", strChComposta.Substring(0, strChComposta.Length - 1));
+
+                        if (strChComposta != "")
+                            strTextoClasse = strTextoClasse.Replace("[ChComposta]", strChComposta.Substring(0, strChComposta.Length - 1));
                         strTextoClasse = strTextoClasse.Replace("[Attribute]", strAttributes);
 
                         foreach (DataRow dr in dtRetornoFields.Rows)
