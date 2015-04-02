@@ -33,7 +33,7 @@ namespace appGeraClasses
         /// </summary>
         private csBanco()
         {
-            _strStringConexao = "Data Source=(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = XE))); User Id=SansERP; Password=SansERP";
+            //_strStringConexao = "Data Source=(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = XE))); User Id=SansERP; Password=SansERP";
             _conexao = new OracleConnection(_strStringConexao);
             _comando = new OracleCommand();
             _comando = _conexao.CreateCommand();
@@ -61,6 +61,9 @@ namespace appGeraClasses
         {
             try
             {
+                if (_conexao.ConnectionString == "" || _conexao.ConnectionString != _strStringConexao)
+                    _conexao.ConnectionString = _strStringConexao;
+                
                 if (_conexao.State == ConnectionState.Closed)
                     _conexao.Open();
                 return true;
@@ -86,6 +89,28 @@ namespace appGeraClasses
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Retorna as tabelas da base de dados connectada
+        /// </summary>
+        /// <returns></returns>
+        public OracleDataAdapter RetornaTabelasBase()
+        {
+            OracleDataAdapter dtaTabela = new OracleDataAdapter();
+
+            dtaTabela = RetornaDA("SELECT TABLE_NAME AS NOME FROM USER_TABLES");
+
+            return dtaTabela;
+        }
+
+        public OracleDataAdapter RetornaConfiguracoes()
+        {
+            OracleDataAdapter dtaTabela = new OracleDataAdapter();
+
+            dtaTabela = RetornaDA("SELECT cdConfig, deConfig, deVlConfig FROM GERACLASSESCONFIG");
+
+            return dtaTabela;
         }
 
         /// <summary>
@@ -194,6 +219,29 @@ namespace appGeraClasses
                 return dtaDados;
             }
             return null;            
+        }
+
+        public bool ExecutarSQL(string sSQL)
+        {
+            int iLinhas = 0;
+
+            try
+            {
+                if (ConectaBanco())
+                {
+                    _comando.CommandText = sSQL;
+                    iLinhas = _comando.ExecuteNonQuery();
+
+                    DesconectaBanco();
+                }
+            }
+            catch
+            {
+                DesconectaBanco();
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -21,6 +21,7 @@ namespace appGeraClasses
         DataTable dtCamposTabela = new DataTable();
         DataTable dtRetornoFields = new DataTable();
         DataTable dtCampoCalculado = new DataTable();
+        DataTable dtTabelasBase = new DataTable();
         string nmClasseController;
         string nmClasseModelObject;
         string nmClasseModelAttribute;
@@ -44,15 +45,72 @@ namespace appGeraClasses
             dtCampoCalculado.Columns.Add("nmCampoRetorno", typeof(string));
         }
 
+        private string RetornaStringConexao()
+        {
+            return "Data Source=(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = " + txtHost.Text +
+                   ")(PORT = " + txtPorta.Text +
+                   ")) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = " + txtService.Text +
+                   "))); User Id=" + txtUsuario.Text + "; Password=" + txtSenha.Text + "";
+        }
+
+        private bool ValidaDadosConexao()
+        {
+            if ((txtHost.Text.Trim() == "") ||
+                (txtPorta.Text.Trim() == "") ||
+                (txtService.Text.Trim() == "") ||
+                (txtUsuario.Text.Trim() == "") ||
+                (txtSenha.Text.Trim() == ""))
+                return false;
+
+            return true;
+        }
+
+        private bool TestaConexao()
+        {
+            if (ValidaDadosConexao())
+            {
+                objBanco.strStringConexao = RetornaStringConexao();
+
+                if (objBanco.ConectaBanco())
+                {
+                    objBanco.DesconectaBanco();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void btnCarregaCampos_Click(object sender, EventArgs e)
         {
-            dtCamposTabela.Rows.Clear();
-            
-            objDta = objBanco.RetornaCamposTabela(txtNmTabela.Text);
-            objDta.Fill(dtCamposTabela);
+            if (!ValidaDadosConexao())
+            {
+                MessageBox.Show("Dados inválidos para conexão. Por favor, verifique.");
+                return;
+            }
 
-            dgvCampos.AutoGenerateColumns = false;
-            dgvCampos.DataSource = dtCamposTabela;
+            try
+            {
+                objBanco.strStringConexao = RetornaStringConexao();
+
+                dtCamposTabela.Rows.Clear();
+
+                objDta = objBanco.RetornaCamposTabela(txtNmTabela.Text);
+                objDta.Fill(dtCamposTabela);
+
+                if ((dtCamposTabela == null) || (dtCamposTabela.Rows.Count == 0))
+                {
+                    MessageBox.Show("Tabela não existe ou não possui campos. Por favor, verifique.");
+                    return;
+                }
+
+                dgvCampos.AutoGenerateColumns = false;
+                dgvCampos.DataSource = dtCamposTabela;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar campos da Tabela: " + ex.Message);
+            }
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
@@ -60,8 +118,38 @@ namespace appGeraClasses
             dtCamposTabela.Rows.Clear();
         }
 
+        public string Valido()
+        {
+            string strMensagem = "";
+            bool bDePrincipal = false, b2DePrincipal = false;
+
+            foreach (DataRow dr in dtCamposTabela.Rows)
+            {
+                if (dr["dePrincipal"].ToString() == "S" && bDePrincipal)
+                    b2DePrincipal = true;
+
+                if (dr["dePrincipal"].ToString() == "S")
+                    bDePrincipal = true;
+            }
+
+            if (b2DePrincipal)
+                strMensagem = "Deve ser selecionado apenas um campo como Desc. Principal!";
+            else
+            if (!bDePrincipal)
+                strMensagem = "Não foi selecionada a descrição principal!";
+
+            return strMensagem;
+        }
+
         private void btnGerar_Click(object sender, EventArgs e)
         {
+            string strMensagem = Valido();
+            if (strMensagem != "")
+            {
+                MessageBox.Show(strMensagem);
+                return;
+            }
+            
             GeraController();
             GeraModelAttribute();
             GeraModelObject();
@@ -123,9 +211,11 @@ namespace appGeraClasses
 
         private void txtNmTabela_Leave(object sender, EventArgs e)
         {
-            nmClasseController = txtCaminho.Text + "con" + txtNmTabela.Text + ".cs";
-            nmClasseModelObject = txtCaminho.Text + "co" + txtNmTabela.Text + ".cs";
-            nmClasseModelAttribute = txtCaminho.Text + "ca" + txtNmTabela.Text + ".cs";
+            nmClasseController = txtCaminho.Text + "\\" + "con" + txtNmTabela.Text + ".cs";
+            nmClasseModelObject = txtCaminho.Text + "\\" + "co" + txtNmTabela.Text + ".cs";
+            nmClasseModelAttribute = txtCaminho.Text + "\\" + "ca" + txtNmTabela.Text + ".cs";
+
+            btnCarregaCampos_Click(null, null);
         }
 
         private void GeraController()
@@ -330,6 +420,107 @@ namespace appGeraClasses
             {
                 MessageBox.Show("Erro ao Chave da Tabela Origem: " + ex.Message);
             }
+        }
+
+        private void btnTestarConexao_Click(object sender, EventArgs e)
+        {
+            if (!TestaConexao())
+                MessageBox.Show("Dados inválidos para conexão. Por favor, Verifique.");
+            else
+                MessageBox.Show("Dados OK para conxão!");
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            if (!TestaConexao())
+                MessageBox.Show("Dados inválidos para conexão. Por favor, Verifique.");
+            else
+            {
+                dtTabelasBase.Rows.Clear();
+
+                objDta = objBanco.RetornaTabelasBase();
+                objDta.Fill(dtTabelasBase);
+            }
+        }
+
+        private void btnLoadFolder_Click(object sender, EventArgs e)
+        {
+            DialogResult result = this.fbdCaminhoArquivos.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                txtCaminho.Text = this.fbdCaminhoArquivos.SelectedPath.ToString();
+            }
+        }
+
+        private void btnOpenFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(txtCaminho.Text);
+        }
+
+        private void btnSalvarConfig_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!TestaConexao())
+                    MessageBox.Show("Dados inválidos para conexão. Por favor, Verifique.");
+                else
+                {
+                    objBanco.ExecutarSQL("DELETE FROM GERACLASSESCONFIG");
+
+                    string strCommand = "INSERT INTO GERACLASSESCONFIG VALUES([cdConfig], '[deConfig]', '[deVlConfig]')";
+
+                    objBanco.ExecutarSQL(strCommand.Replace("[cdConfig]", "1").Replace("[deConfig]", "Caminho dos Arquivos").Replace("[deVlConfig]", txtCaminho.Text));
+                    objBanco.ExecutarSQL(strCommand.Replace("[cdConfig]", "2").Replace("[deConfig]", "NameSpace Mensagem").Replace("[deVlConfig]", txtNameSpaceMensagem.Text));
+                    objBanco.ExecutarSQL(strCommand.Replace("[cdConfig]", "3").Replace("[deConfig]", "NameSpace Controler").Replace("[deVlConfig]", txtNameSpaceController.Text));
+                    objBanco.ExecutarSQL(strCommand.Replace("[cdConfig]", "4").Replace("[deConfig]", "NameSpace Model").Replace("[deVlConfig]", txtNameSpaceModel.Text));
+                    objBanco.ExecutarSQL("COMMIT");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao salvar configurações: " + ex.Message);
+            }
+        }
+
+        private void brnCarregarConfig_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!TestaConexao())
+                    MessageBox.Show("Dados inválidos para conexão. Por favor, Verifique.");
+                else
+                {
+                    DataTable dt = new DataTable();
+                    dt.Rows.Clear();
+
+                    objDta = objBanco.RetornaConfiguracoes();
+                    objDta.Fill(dt);
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        if (dr["cdConfig"].ToString() == "1")
+                            txtCaminho.Text = dr["deVlConfig"].ToString();
+
+                        if (dr["cdConfig"].ToString() == "2")
+                            txtNameSpaceMensagem.Text = dr["deVlConfig"].ToString();
+
+                        if (dr["cdConfig"].ToString() == "3")
+                            txtNameSpaceController.Text = dr["deVlConfig"].ToString();
+
+                        if (dr["cdConfig"].ToString() == "4")
+                            txtNameSpaceModel.Text = dr["deVlConfig"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao salvar configurações: " + ex.Message);
+            }
+        }
+
+        private void dgvCampos_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            tcClasses_SelectedIndexChanged(null, null);
         }
     }
 }

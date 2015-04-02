@@ -63,6 +63,16 @@
     <Compile Include="ModelObject\csModelObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Resources\connect.png" />
+    <None Include="Resources\TestConnect.png" />
+    <None Include="Resources\SalvarNaPasta.png" />
+    <None Include="Resources\pasta.png" />
+    <None Include="Resources\carregarConfig.png" />
+    <None Include="Resources\SalvarP.png" />
+    <None Include="Resources\salvar.png" />
+    <None Include="Resources\Finalizar.png" />
+    <None Include="Resources\limpar.png" />
+    <None Include="Resources\Carregar.png" />
     <EmbeddedResource Include="frmGeraClasses.resx">
       <DependentUpon>frmGeraClasses.cs</DependentUpon>
     </EmbeddedResource>
@@ -74,6 +84,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
