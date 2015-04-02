@@ -149,10 +149,17 @@ namespace appGeraClasses
                 MessageBox.Show(strMensagem);
                 return;
             }
-            
-            GeraController();
-            GeraModelAttribute();
-            GeraModelObject();
+
+            try
+            {
+                GeraController();
+                GeraModelAttribute();
+                GeraModelObject();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Falha ao gerar classes: " + Ex.Message);
+            }
         }
 
         private string GeraCampoCalculado()
@@ -424,22 +431,36 @@ namespace appGeraClasses
 
         private void btnTestarConexao_Click(object sender, EventArgs e)
         {
-            if (!TestaConexao())
-                MessageBox.Show("Dados inválidos para conexão. Por favor, Verifique.");
-            else
-                MessageBox.Show("Dados OK para conxão!");
+            try
+            {
+                if (!TestaConexao())
+                    MessageBox.Show("Dados inválidos para conexão. Por favor, Verifique.");
+                else
+                    MessageBox.Show("Dados OK para conxão!");
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Falha ao testar conexão: " + Ex.Message);
+            }
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            if (!TestaConexao())
-                MessageBox.Show("Dados inválidos para conexão. Por favor, Verifique.");
-            else
+            try
             {
-                dtTabelasBase.Rows.Clear();
+                if (!TestaConexao())
+                    MessageBox.Show("Dados inválidos para conexão. Por favor, Verifique.");
+                else
+                {
+                    dtTabelasBase.Rows.Clear();
 
-                objDta = objBanco.RetornaTabelasBase();
-                objDta.Fill(dtTabelasBase);
+                    objDta = objBanco.RetornaTabelasBase();
+                    objDta.Fill(dtTabelasBase);
+                }
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Falha ao tentar conectar: " + Ex.Message);
             }
         }
 
@@ -454,7 +475,14 @@ namespace appGeraClasses
 
         private void btnOpenFolder_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(txtCaminho.Text);
+            try
+            {
+                System.Diagnostics.Process.Start(txtCaminho.Text);
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Erro ao abrir pasta: " + Ex.Message);
+            }
         }
 
         private void btnSalvarConfig_Click(object sender, EventArgs e)
@@ -514,7 +542,7 @@ namespace appGeraClasses
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao salvar configurações: " + ex.Message);
+                MessageBox.Show("Erro ao carregar configurações: " + ex.Message);
             }
         }
 
