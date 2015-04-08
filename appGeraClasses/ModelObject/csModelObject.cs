@@ -22,9 +22,11 @@ namespace appGeraClasses.ModelObject
             "               dtDados.Columns[ca[Table].[CCAttribute]].ReadOnly = false;" + "\n" +
             "               dtDados.Columns[ca[Table].[CCAttribute]].MaxLength = 100;" + "\n";
 
+        public string strFiltrosConsulta = "                   objCon[TableCalc].objCo[TableCalc].[CampoChave] = Convert.ToInt32(dr[ca[Table].[CampoChave]].ToString());" + "\n";
+
         public string strPreparaControllerParaConsulta =
             "                   objCon[TableCalc].objCo[TableCalc].LimparAtributos();" + "\n" +
-            "                   objCon[TableCalc].objCo[TableCalc].[CampoChave] = Convert.ToInt32(dr[ca[Table].[CampoChave]].ToString());";
+            "[strFiltrosConsulta]";
 
         public string strTraducaoCampoCalc =
             "                           dr[ca[Table].[CCAttribute]] = objCon[TableCalc].dtDados.Rows[0][ca[TableCalc].[AttributeCalc]].ToString();" + "\n";

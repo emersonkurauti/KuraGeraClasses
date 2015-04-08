@@ -173,11 +173,13 @@ namespace appGeraClasses
                 string strSelectCampoCalc = ClasseModelObject.strSelectCampoCalc;
                 string strListaControllers = "";
                 string strAlteraReadyOnly_Length = "";
+                string strFiltrosConsulta = "";
                 string strPreparaControllerParaConsulta = "";
                 string strExecutaConsulta = "";
                 string strTraducaoCampoCalc = "";
                 string strTable = "";
                 string strTabelaAnterior = dtCampoCalculado.Rows[0]["nmTabela"].ToString();
+                string[] strCamposChaves;
 
                 foreach (DataRow dr in dtCampoCalculado.Rows)
                 {
@@ -189,7 +191,16 @@ namespace appGeraClasses
                     if (!strPreparaControllerParaConsulta.Contains(dr["nmTabela"].ToString()) ||
                         !strPreparaControllerParaConsulta.Contains(dr["nmChave"].ToString()) ||
                         !strPreparaControllerParaConsulta.Contains(txtNmTabela.Text))
-                        strPreparaControllerParaConsulta += ClasseModelObject.strPreparaControllerParaConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CampoChave]", dr["nmChave"].ToString()).Replace("[Table]", txtNmTabela.Text);
+                        strPreparaControllerParaConsulta += ClasseModelObject.strPreparaControllerParaConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[Table]", txtNmTabela.Text);
+
+                    strCamposChaves = dr["nmChave"].ToString().Split(';');
+
+                    foreach (string strCampoChave in strCamposChaves)
+                    {
+                        strFiltrosConsulta += ClasseModelObject.strFiltrosConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[Table]", txtNmTabela.Text).Replace("[CampoChave]", strCampoChave);
+                    }
+
+                    strPreparaControllerParaConsulta.Replace("[strFiltrosConsulta]", strFiltrosConsulta);
 
                     strTraducaoCampoCalc += ClasseModelObject.strTraducaoCampoCalc.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CCAttribute]", dr["nmCampoCalculado"].ToString()).Replace("[Table]", txtNmTabela.Text).Replace("[AttributeCalc]", dr["nmCampoRetorno"].ToString());
 
@@ -324,13 +335,13 @@ namespace appGeraClasses
                         foreach (DataRow dr in dtCamposTabela.Rows)
                         {
                             if (dr["CHAVE"].ToString() == "S")
-                                strTextoClasse = strTextoClasse.Replace("[PK]", dr["Nome"].ToString());
+                                strTextoClasse = strTextoClasse.Replace("[PK]", dr["NomeClasse"].ToString());
 
                             if (dr["dePrincipal"].ToString() == "S")
-                                strTextoClasse = strTextoClasse.Replace("[DescPrinc]", dr["Nome"].ToString());
+                                strTextoClasse = strTextoClasse.Replace("[DescPrinc]", dr["NomeClasse"].ToString());
 
                             if (dr["CHCOMPOSTA"].ToString() == "S")
-                                strChComposta += dr["Nome"].ToString() + ";";
+                                strChComposta += dr["NomeClasse"].ToString() + ";";
 
                             strAttributes += "\n" + ClasseModelAttribute.strAttribute.Replace("[nmAttribute]", dr["NomeClasse"].ToString());
                         }
@@ -425,7 +436,7 @@ namespace appGeraClasses
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao Chave da Tabela Origem: " + ex.Message);
+                MessageBox.Show("Erro ao carregar chave da Tabela Origem: " + ex.Message);
             }
         }
 
