@@ -44,18 +44,14 @@ namespace appGeraClasses.ModelAttribute
             "            set { _strNome = value; }" + "\n" +
             "        }" + "\n" +
             "" + "\n" +
-            "        private static bool _bGeraChave = [GeraChave];" + "\n" +
-            "        public static bool bGeraChave" + "\n" +
+            "        public static bool _bGeraChave" + "\n" +
             "        {" + "\n" +
-            "            get { return ca[Table]._bGeraChave; }" + "\n" +
-            "            set { ca[Table]._bGeraChave = value; }" + "\n" +
+            "            get { return [GeraChave]; }" + "\n" +
             "        }" + "\n" +
             "" + "\n" +
-            "        private static bool _bControlaTransacao = [ControlaTransacao];" + "\n" +
-            "        public static bool bControlaTransacao" + "\n" +
+            "        public static bool _bControlaTransacao" + "\n" +
             "        {" + "\n" +
-            "            get { return ca[Table]._bControlaTransacao; }" + "\n" +
-            "            set { ca[Table]._bControlaTransacao = value; }" + "\n" +
+            "            get { return [ControlaTransacao]; }" + "\n" +
             "        }" + "\n" +
             "" + "\n" +
             "        public static string CC_cdRegistro" + "\n" +
