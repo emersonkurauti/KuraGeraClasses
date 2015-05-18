@@ -13,7 +13,8 @@ namespace appGeraClasses.ModelObject
             "        {" + "\n" +
             "            get { return _[nmAttribute]; }" + "\n" +
             "            set { _[nmAttribute] = value; }" + "\n" +
-            "        }";
+            "        }" +
+            "" + "\n";
 
         public string strListaControllers = 
             "               con[TableCalc] objCon[TableCalc] = new con[TableCalc]();" + "\n";
@@ -58,7 +59,7 @@ namespace appGeraClasses.ModelObject
             "               {" + "\n" +
             "[PreparaControllerParaConsulta]" + "\n" +
             "" + "\n" +
-            "[ExecutaConsulta]" + 
+            "[ExecutaConsulta]" +
             "               }" + "\n" +
             "" + "\n" +
             "               dtDados = dtAux;" + "\n" +
@@ -67,7 +68,8 @@ namespace appGeraClasses.ModelObject
             "               return false;" + "\n" +
             "" + "\n" +
             "           return true;" + "\n" +
-            "       }";
+            "       }" +
+            "" + "\n";
 
         public string strModelObject =
             "using System;" + "\n" +
@@ -92,7 +94,6 @@ namespace appGeraClasses.ModelObject
             "		/// Atributos" + "\n" +
             "		/// </summary>" +
             "        [Attribute]" + "\n" +
-            "" + "\n" +
             "        /// <summary>" + "\n" +
             "        /// Construtor" + "\n" +
             "        /// </summary>" + "\n" +
@@ -104,8 +105,7 @@ namespace appGeraClasses.ModelObject
             "            tobjCA = typeof(ca[Table]);" + "\n" +
             "        }" + "\n" +
             "" + "\n" +
-            "[CampoCalculado]" + "\n" +
-            "" + "\n" +
+            "[CampoCalculado]" +
             "        /// <summary>" + "\n" +
             "        /// Sobrescrito para retornar a chave" + "\n" +
             "        /// </summary>" + "\n" +

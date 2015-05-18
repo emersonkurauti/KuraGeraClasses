@@ -68,6 +68,8 @@ namespace appGeraClasses.Controller
             "        {" + "\n" +
             "            if (!_objCo[Table].Inserir())" + "\n" +
             "            {" + "\n" +
+            "            _strMensagemErro = \"\";" + "\n" +
+            "" + "\n" +
             "                _strMensagemErro = csMensagem.msgInserir;" + "\n" +
             "                return false;" + "\n" +
             "            }" + "\n" +
