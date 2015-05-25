@@ -66,6 +66,8 @@ namespace appGeraClasses.Controller
             "        /// <returns></returns>" + "\n" +
             "        public static bool Inserir()" + "\n" +
             "        {" + "\n" +
+            "            _strMensagemErro = \"\";" + "\n" +
+            "" + "\n" +
             "            if (!_objCo[Table].Inserir())" + "\n" +
             "            {" + "\n" +
             "            _strMensagemErro = \"\";" + "\n" +
