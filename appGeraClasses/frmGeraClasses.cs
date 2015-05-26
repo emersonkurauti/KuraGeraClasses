@@ -200,7 +200,7 @@ namespace appGeraClasses
                         strFiltrosConsulta += ClasseModelObject.strFiltrosConsulta.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[Table]", txtNmTabela.Text).Replace("[CampoChave]", strCampoChave);
                     }
 
-                    strPreparaControllerParaConsulta.Replace("[strFiltrosConsulta]", strFiltrosConsulta);
+                    strPreparaControllerParaConsulta = strPreparaControllerParaConsulta.Replace("[strFiltrosConsulta]", strFiltrosConsulta.ToString());
 
                     strTraducaoCampoCalc += ClasseModelObject.strTraducaoCampoCalc.Replace("[TableCalc]", dr["nmTabela"].ToString()).Replace("[CCAttribute]", dr["nmCampoCalculado"].ToString()).Replace("[Table]", txtNmTabela.Text).Replace("[AttributeCalc]", dr["nmCampoRetorno"].ToString());
 
@@ -379,7 +379,7 @@ namespace appGeraClasses
 
             foreach (DataRow dr in dtCamposTabela.Rows)
             {
-                if (dr["NomeClasse"].ToString().Substring(0, 3) == "CC_")
+                if (dr["NomeClasse"].ToString().Substring(0, 3).ToUpper() == "CC_")
                 {
                     DataRow drField = dtCampoCalculado.NewRow();
 
