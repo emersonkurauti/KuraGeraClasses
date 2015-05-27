@@ -289,6 +289,9 @@ namespace appGeraClasses
                             if (dr["CHAVE"].ToString() == "S")
                                 strTextoClasse = strTextoClasse.Replace("[PK]", dr["NomeClasse"].ToString());
 
+                            if (dr["TpVariavel"].ToString() == "datetime")
+                                dr["TpVariavel"] = "DateTime";
+
                             strAttributes += "\n" + ClasseModelObject.strAttribute.Replace("[nmAttribute]", dr["NomeClasse"].ToString()).Replace("[Type]", dr["TpVariavel"].ToString().ToLower()).Replace("[IniVar]", strIniVar);
                         }
 
